@@ -1,0 +1,51 @@
+---
+description: PCEHR compiled WSDL repo layout, release lines, and build
+alwaysApply: true
+---
+
+# pcehr-compiled-wsdl-java
+
+Maven artifact **`au.gov.nehta:pcehr-compiled-wsdl`** — MHR **PCEHR B2B** WSDL resources and pre-generated JAX-WS/JAXB types. **Not** facade clients (**mhr-b2b-client-java**). **Not** Healthcare Identifiers (**hi-wsdl-java** / **hi-b2b-client-java**).
+
+## Documentation
+
+Follow **`documentation-standards.mdc`**. Integrator docs use **version numbers** — not Git branch names.
+
+| Version | Java | XML stack | `Service` stubs |
+| ------- | ---- | --------- | ----------------- |
+| **1.6.3** | 8 | **javax** / EE4J **`jaxws-rt` 2.3.x** in consumers | **12** (MHR B2B) |
+
+**Git branch mapping (maintainers only — never in integrator docs):**
+
+| Version | Git branch |
+| ------- | ---------- |
+| **1.6.3** | `java-8-javax` or `java-8-javax-full-wsdl` |
+| Java **11** / Jakarta types line | `java-11-jakarta-full-wsdl` (separate checkout; MHR facade clients on **mhr-b2b-client-java** **`java-11-jakarta`**) |
+
+## This checkout
+
+**`1.6.3-SNAPSHOT`**: Java **8**, **`javax`** committed types, **12** MHR B2B **`@WebServiceClient`** services. WSDL under **`src/main/resources/wsdl/`** and legacy tree **`src/main/java/wsdls/`** — **committed** (not separately licensed like HI WSDL). **`pcehr_override/`** xmldsig package. Sources **frozen** — no **`wsimport`** in this POM.
+
+## Build
+
+- JDK **8+**, from repo root: `mvn -B "-Dgpg.skip=true" clean verify` (quote `-D` on PowerShell).
+- Default build uses **committed** `src/main/java` — no wsimport.
+- After wsimport regeneration: **`python scripts/fix-javadoc.py`** then **`mvn verify`** (**`doclint=all`**, **`failOnWarnings=true`**).
+- Consumers add Eclipse EE4J **`com.sun.xml.ws:jaxws-rt` 2.3.7** at runtime — **not** Metro **`webservices-*`**.
+
+## vs mhr-b2b-client-java
+
+| | **pcehr-compiled-wsdl-java** | **mhr-b2b-client-java** |
+|---|---|---|
+| Delivers | WSDL on classpath + generated types | Facade clients, TLS, signing |
+| Artifact | `pcehr-compiled-wsdl` | `mhr-b2b-client` |
+| Java **11** / Jakarta | Separate branch here; facades in **mhr-b2b-client-java** | In-repo **`wsimport`** on **`java-11-jakarta`** |
+
+Align **`pcehr-compiled-wsdl`** and **`mhr-b2b-client`** at the **same version** on the Java **8** line (**`1.6.3`**). **`mvn install`** this types JAR before unpublished **`mhr-b2b-client`** **`verify`**.
+
+## Doc split
+
+- **`documentation-standards.mdc`**: implementor-first, Maven Central default, local/OS sections, relative paths, no secrets
+- **`README.md`**: integrators (Maven Central default)
+- **`CONTRIBUTING.md`**: build from source, local SNAPSHOT, regeneration notes
+- **`MAINTAINERS.md`**: POM / Javadoc / release internals

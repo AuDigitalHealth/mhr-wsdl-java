@@ -1,0 +1,92 @@
+
+package au.net.electronichealth.ns.wsp.xsd.standarderror._2010;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+
+/**
+ * <p>Java class for StandardErrorType complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="StandardErrorType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="errorCode" type="{http://ns.electronichealth.net.au/wsp/xsd/StandardError/2010}StandardErrorCodeType"/&gt;
+ *         &lt;element name="message" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
+ * </pre>
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "StandardErrorType", propOrder = {
+    "errorCode",
+    "message"
+})
+@XmlRootElement(name = "standardError")
+public class StandardError {
+
+    @XmlElement(required = true)
+    protected StandardErrorCodeType errorCode;
+    @XmlElement(required = true)
+    protected String message;
+
+    /**
+     * Gets the value of the errorCode property.
+     * 
+     * @return the result
+     *     possible object is
+     *     {@link StandardErrorCodeType }
+     *     
+     */
+    public StandardErrorCodeType getErrorCode() {
+        return errorCode;
+    }
+
+    /**
+     * Sets the value of the errorCode property.
+     * 
+     * @param value field value
+     *     allowed object is
+     *     {@link StandardErrorCodeType }
+     *     
+     */
+    public void setErrorCode(StandardErrorCodeType value) {
+        this.errorCode = value;
+    }
+
+    /**
+     * Gets the value of the message property.
+     * 
+     * @return the result
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getMessage() {
+        return message;
+    }
+
+    /**
+     * Sets the value of the message property.
+     * 
+     * @param value field value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setMessage(String value) {
+        this.message = value;
+    }
+
+}

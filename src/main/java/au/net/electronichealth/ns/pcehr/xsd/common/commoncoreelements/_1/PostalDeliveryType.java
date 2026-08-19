@@ -1,0 +1,133 @@
+
+package au.net.electronichealth.ns.pcehr.xsd.common.commoncoreelements._1;
+
+import javax.xml.bind.annotation.XmlEnum;
+import javax.xml.bind.annotation.XmlEnumValue;
+import javax.xml.bind.annotation.XmlType;
+
+
+/**
+ * <p>Java class for postalDeliveryType.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * <pre>
+ * &lt;simpleType name="postalDeliveryType"&gt;
+ *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *     &lt;enumeration value="Care PO"/&gt;
+ *     &lt;enumeration value="CMA"/&gt;
+ *     &lt;enumeration value="CMB"/&gt;
+ *     &lt;enumeration value="GPO Box"/&gt;
+ *     &lt;enumeration value="Locked Bag"/&gt;
+ *     &lt;enumeration value="MS"/&gt;
+ *     &lt;enumeration value="PO Box"/&gt;
+ *     &lt;enumeration value="POR"/&gt;
+ *     &lt;enumeration value="Private Bag"/&gt;
+ *     &lt;enumeration value="RSD"/&gt;
+ *     &lt;enumeration value="RMB"/&gt;
+ *     &lt;enumeration value="RMS"/&gt;
+ *   &lt;/restriction&gt;
+ * &lt;/simpleType&gt;
+ * </pre>
+ * 
+ */
+@XmlType(name = "postalDeliveryType")
+@XmlEnum
+public enum PostalDeliveryType {
+
+
+    /**
+     * Care-of Post Office (also known as Poste Restante)
+     * 
+     */
+    @XmlEnumValue("Care PO")
+    CARE_PO("Care PO"),
+
+    /**
+     * Community Mail Agent
+     * 
+     */
+    CMA("CMA"),
+
+    /**
+     * Community Mail Bag
+     * 
+     */
+    CMB("CMB"),
+
+    /**
+     * General Post Office Box
+     * 
+     */
+    @XmlEnumValue("GPO Box")
+    GPO_BOX("GPO Box"),
+
+    /**
+     * Locked Mail Bag Service
+     * 
+     */
+    @XmlEnumValue("Locked Bag")
+    LOCKED_BAG("Locked Bag"),
+
+    /**
+     * Mail Service
+     * 
+     */
+    MS("MS"),
+
+    /**
+     * Post Office Box
+     * 
+     */
+    @XmlEnumValue("PO Box")
+    PO_BOX("PO Box"),
+
+    /**
+     * Post Restante (also known as Care-of Post Office)
+     * 
+     */
+    POR("POR"),
+
+    /**
+     * Private Mail Bag Service
+     * 
+     */
+    @XmlEnumValue("Private Bag")
+    PRIVATE_BAG("Private Bag"),
+
+    /**
+     * Roadside Delivery
+     * 
+     */
+    RSD("RSD"),
+
+    /**
+     * Roadside Mail Box/Bag
+     * 
+     */
+    RMB("RMB"),
+
+    /**
+     * Roadside Mail Service
+     * 
+     */
+    RMS("RMS");
+    private final String value;
+
+    PostalDeliveryType(String v) {
+        value = v;
+    }
+
+    public String value() {
+        return value;
+    }
+
+    public static PostalDeliveryType fromValue(String v) {
+        for (PostalDeliveryType c: PostalDeliveryType.values()) {
+            if (c.value.equals(v)) {
+                return c;
+            }
+        }
+        throw new IllegalArgumentException(v);
+    }
+
+}
