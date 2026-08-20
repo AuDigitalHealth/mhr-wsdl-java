@@ -8,11 +8,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>au.gov.nehta</groupId>
-    <artifactId>pcehr-compiled-wsdl</artifactId>
-    <version>1.6.4-SNAPSHOT</version>
-    <name>PCEHR Compiled WSDL library</name>
-    <description>Java classes for B2B client development (Java 8 / javax)</description>
-    <url>https://github.com/AuDigitalHealth/pcehr-compiled-wsdl-java</url>
+    <artifactId>mhr-wsdl</artifactId>
+    <version>8.0.0.1-SNAPSHOT</version>
+    <name>MHR WSDL library</name>
+    <description>Java classes for My Health Record B2B client development (Java 8 / javax)</description>
+    <url>https://github.com/AuDigitalHealth/mhr-wsdl-java</url>
 
     <licenses>
         <license>
@@ -45,11 +45,11 @@
 
     <issueManagement>
         <system>GitHub</system>
-        <url>https://github.com/AuDigitalHealth/pcehr-compiled-wsdl-java/issues</url>
+        <url>https://github.com/AuDigitalHealth/mhr-wsdl-java/issues</url>
     </issueManagement>
     <ciManagement>
         <system>GitHub Actions</system>
-        <url>https://github.com/AuDigitalHealth/pcehr-compiled-wsdl-java/actions</url>
+        <url>https://github.com/AuDigitalHealth/mhr-wsdl-java/actions</url>
     </ciManagement>
 
     <distributionManagement>
@@ -72,7 +72,7 @@
         <archetype.encoding>${encoding}</archetype.encoding>
         <gpg.skip>true</gpg.skip>
         <!-- SCM / maven-release-plugin (scm.repo.url is the only repo-specific Git value) -->
-        <scm.repo.url>https://github.com/AuDigitalHealth/pcehr-compiled-wsdl-java.git</scm.repo.url>
+        <scm.repo.url>https://github.com/AuDigitalHealth/mhr-wsdl-java.git</scm.repo.url>
         <scm.tag>HEAD</scm.tag>
         <release.localCheckout>true</release.localCheckout>
         <release.dryRun>false</release.dryRun>
@@ -106,19 +106,16 @@
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
             <version>${jaxb.api.version}</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax.xml.ws</groupId>
             <artifactId>jaxws-api</artifactId>
             <version>${jaxws.api.version}</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax.jws</groupId>
             <artifactId>javax.jws-api</artifactId>
             <version>${javax.jws.api.version}</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -163,7 +160,7 @@
                                         <exclude>jakarta.activation:*</exclude>
                                         <exclude>jakarta.annotation:*</exclude>
                                     </excludes>
-                                    <message>Java 8 / javax line: use javax.xml.bind, javax.xml.ws, and javax.jws only. Consumers add EE4J jaxws-rt 2.3.x at runtime — not Metro webservices-* or Jakarta XML APIs.</message>
+                                    <message>Java 8 / javax line: use javax.xml.bind, javax.xml.ws, and javax.jws only. Consumers add EE4J jaxws-rt 2.3.x at runtime - not Metro webservices-* or Jakarta XML APIs.</message>
                                 </bannedDependencies>
                             </rules>
                         </configuration>
