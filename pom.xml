@@ -9,9 +9,9 @@
 
     <groupId>au.gov.nehta</groupId>
     <artifactId>mhr-wsdl</artifactId>
-    <version>17.0.0-SNAPSHOT</version>
+    <version>21.0.0-SNAPSHOT</version>
     <name>MHR WSDL library</name>
-    <description>My Health Record B2B WSDL and Jakarta generated types (Java 17)</description>
+    <description>My Health Record B2B WSDL and Jakarta generated types (Java 21)</description>
     <url>https://github.com/AuDigitalHealth/mhr-wsdl-java</url>
 
     <licenses>
@@ -64,7 +64,7 @@
     </distributionManagement>
 
     <properties>
-        <maven.compiler.release>17</maven.compiler.release>
+        <maven.compiler.release>21</maven.compiler.release>
         <encoding>UTF-8</encoding>
         <project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
         <project.reporting.outputEncoding>${encoding}</project.reporting.outputEncoding>
@@ -82,7 +82,7 @@
         <release.pushChanges>true</release.pushChanges>
         <release.remoteTagging>true</release.remoteTagging>
         <release.scmCommentPrefix>[maven-release-plugin] </release.scmCommentPrefix>
-        <!-- Java 17 does not provide JAXB/JAX-WS APIs; consuming SOAP clients add jaxws-rt at runtime. -->
+        <!-- Java 21 does not provide JAXB/JAX-WS APIs; consuming SOAP clients add jaxws-rt at runtime. -->
         <jaxws.rt.version>4.0.5</jaxws.rt.version>
         <jakarta.xml.bind.api.version>4.0.5</jakarta.xml.bind.api.version>
         <jakarta.xml.ws.api.version>4.0.3</jakarta.xml.ws.api.version>
@@ -139,7 +139,7 @@
                 <version>${plugin.enforcer.version}</version>
                 <executions>
                     <execution>
-                        <id>enforce-java17-jakarta</id>
+                        <id>enforce-java21-jakarta</id>
                         <goals>
                             <goal>enforce</goal>
                         </goals>
@@ -159,7 +159,7 @@
                                         <exclude>javax.jws:*</exclude>
                                         <exclude>javax.xml.soap:*</exclude>
                                     </excludes>
-                                    <message>Java 17 line: use Eclipse EE4J jaxws-rt and Jakarta XML APIs, not legacy Metro webservices-* or javax JAX-WS/JAXB APIs.</message>
+                                    <message>Java 21 line: use Eclipse EE4J jaxws-rt and Jakarta XML APIs, not legacy Metro webservices-* or javax JAX-WS/JAXB APIs.</message>
                                 </bannedDependencies>
                             </rules>
                         </configuration>

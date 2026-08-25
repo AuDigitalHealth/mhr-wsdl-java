@@ -12,11 +12,11 @@ Published releases are consumed from **[Maven Central](https://central.sonatype.
 <dependency>
   <groupId>au.gov.nehta</groupId>
   <artifactId>mhr-wsdl</artifactId>
-  <version>17.0.0</version>
+  <version>21.0.0</version>
 </dependency>
 ```
 
-**This line (`17.0.0`):** Java **17**, **Jakarta XML APIs**, **12** MHR B2B **`Service`** stubs, and committed generated types. Consuming SOAP clients add Eclipse EE4J **`com.sun.xml.ws:jaxws-rt`** **4.0.5** at runtime. Do not use legacy Metro **`webservices-*`** bundles.
+**This line (`21.0.0`):** Java **21**, **Jakarta XML APIs**, **12** MHR B2B **`Service`** stubs, and committed generated types. Consuming SOAP clients add Eclipse EE4J **`com.sun.xml.ws:jaxws-rt`** **4.0.5** at runtime. Do not use legacy Metro **`webservices-*`** bundles.
 
 When **`mhr-b2b-client`** is also on the classpath, use the same Maven version for both artifacts.
 
@@ -36,7 +36,7 @@ Java packages and type names use **`mhr`** (`au.net.electronichealth.ns.mhr`, **
 
 ## Local Development
 
-This repository builds **`17.0.0-SNAPSHOT`**. The default lifecycle compiles committed types only.
+This repository builds **`21.0.0-SNAPSHOT`**. The default lifecycle compiles committed types only.
 
 ```text
 mvn -B "-Dgpg.skip=true" clean install
@@ -60,7 +60,7 @@ Generated **`Service`** stubs cover 12 primary MHR B2B operations: document regi
 
 ## Building From Source
 
-Prerequisites: **JDK 17+**, **Maven 3.6+**. All JAX-WS/JAXB types are committed in **`src/main/java`**; the build compiles them only.
+Prerequisites: **JDK 21+**, **Maven 3.6+**. All JAX-WS/JAXB types are committed in **`src/main/java`**; the build compiles them only.
 
 ```text
 mvn -B "-Dgpg.skip=true" clean verify
