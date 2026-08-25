@@ -26,7 +26,7 @@ Paths are relative to the repository root. The Maven artifact id is **`mhr-wsdl`
 
 ## This Line
 
-**`21.0.0-SNAPSHOT`**: Java **21**, Jakarta generated types, and 12 primary MHR B2B **`@WebServiceClient`** services. The default lifecycle compiles committed sources and packages classpath WSDL.
+**`24.0.0-SNAPSHOT`**: Java **24**, Jakarta generated types, and 12 primary MHR B2B **`@WebServiceClient`** services. The default lifecycle compiles committed sources and packages classpath WSDL.
 
 ## Artifact Scope
 
@@ -39,16 +39,16 @@ Publish **`mhr-wsdl`** first. Any consumer that depends on **`mhr-wsdl`** at the
 
 ## Build Stack
 
-- JDK **21+**
+- JDK **24+**
 - Compile APIs: **`jakarta.xml.bind-api` 4.0.5**, **`jakarta.xml.ws-api` 4.0.3**
 - Test runtime: **`com.sun.xml.ws:jaxws-rt` 4.0.5**
 - Enforcer bans legacy Metro **`webservices-*`** and legacy **`javax`** JAX-WS/JAXB API dependencies
-- CI branch filter: **`java-21`**, JDK **21**
+- CI branch filter: **`java-24`**, JDK **24**
 
 ## Release Command
 
 ```text
-mvn -B "-Prelease" release:prepare release:perform -DreleaseVersion=21.0.0 -DdevelopmentVersion=21.0.1-SNAPSHOT -Dtag=mhr-wsdl-21.0.0
+mvn -B "-Prelease" release:prepare release:perform -DreleaseVersion=24.0.0 -DdevelopmentVersion=24.0.1-SNAPSHOT -Dtag=mhr-wsdl-24.0.0
 ```
 
 Omit **`-D...`** only if you accept interactive prompts.

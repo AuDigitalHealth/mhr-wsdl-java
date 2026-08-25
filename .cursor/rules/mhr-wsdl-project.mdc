@@ -31,13 +31,13 @@ The **first number** of **`au.gov.nehta:mhr-wsdl`** is the **Java SE** target. D
 | **21.0.0** | `java-21` |
 | **24.0.0** | `java-24` |
 
-## This 21.0.0 line
+## This 24.0.0 line
 
-**`21.0.0-SNAPSHOT`**: Java **21**, Jakarta committed types, **12** MHR B2B **`@WebServiceClient`** services. WSDL under **`src/main/resources/wsdl/`** and reference tree **`src/main/java/wsdls/`**. **`mhr_override/`** xmldsig package. Sources are committed; no default **`wsimport`** in this POM.
+**`24.0.0-SNAPSHOT`**: Java **24**, Jakarta committed types, **12** MHR B2B **`@WebServiceClient`** services. WSDL under **`src/main/resources/wsdl/`** and reference tree **`src/main/java/wsdls/`**. **`mhr_override/`** xmldsig package. Sources are committed; no default **`wsimport`** in this POM.
 
 ## Build
 
-- JDK **21+**, from repo root: `mvn -B "-Dgpg.skip=true" clean verify` (quote `-D` on PowerShell).
+- JDK **24+**, from repo root: `mvn -B "-Dgpg.skip=true" clean verify` (quote `-D` on PowerShell).
 - Default build uses **committed** `src/main/java` - no wsimport.
 - Consumers add Eclipse EE4J **`com.sun.xml.ws:jaxws-rt` 4.0.5** at runtime - **not** Metro **`webservices-*`**.
 - Compile APIs are Jakarta: **`jakarta.xml.bind-api` 4.0.5** and **`jakarta.xml.ws-api` 4.0.3**.
