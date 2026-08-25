@@ -1,92 +1,54 @@
-# Maintainer guide
+# Maintainers
 
-Paths are relative to the repository root (directory containing **`pom.xml`**).
+**Audience:** people changing the **`mhr-wsdl`** build, generated types, WSDL layout, or release process. Integrators should use **`README.md`**, published Javadoc, and **`pom.xml`** coordinates.
 
-## Release line
+Paths are relative to the repository root. The Maven artifact id is **`mhr-wsdl`**.
 
-**Documentation convention:** README, CONTRIBUTING, CHANGELOG, and integrator-facing text use **version numbers only** — never Git branch names.
+## Release Lines
 
-| Version | Java | APIs | `Service` stubs |
-| ------- | ---- | ---- | ----------------- |
-| **1.6.3** | 8 | **`javax.xml.ws`**, **`javax.xml.bind`**, **`javax.jws`** | **12** (MHR B2B) |
+| Version | Java | XML stack | `Service` stubs |
+| ------- | ---- | --------- | --------------- |
+| **8.0.0** | 8 | `javax.xml.ws`, `javax.xml.bind`, `javax.jws` | 12 |
+| **11.0.0** | 11 | Jakarta XML Web Services | 12 |
+| **17.0.0** | 17 | Jakarta XML Web Services | 12 |
+| **21.0.0** | 21 | Jakarta XML Web Services | 12 |
+| **24.0.0** | 24 | Jakarta XML Web Services | 12 |
 
-**Git branch (maintainers / checkout only — do not use in integrator docs):** **`java-8-javax`** or **`java-8-javax-full-wsdl`**.
+**Git branch mapping (maintainers only):**
 
-**This tree (`1.6.3-SNAPSHOT`):** Java **8**, committed **`javax`** generated types, **12** primary MHR B2B **`@WebServiceClient`** services. Sources are **frozen** in Git (no **`wsimport`** in this POM). **`mhr-b2b-client-java`** (**`master`**) resolves **`pcehr-compiled-wsdl`** at **`${project.version}`** — **`mvn install`** here before an unpublished client **`verify`**. GA **`1.6.3`** pairs ship to Maven Central together. Java **11** / **Jakarta** MHR facade clients live in **[mhr-b2b-client-java](https://github.com/AuDigitalHealth/mhr-b2b-client-java)** **`java-11-jakarta`** — separate artifact line.
+| Version | Official Git branch |
+| ------- | ------------------- |
+| **8.0.0** | `java-8` |
+| **11.0.0** | `java-11` |
+| **17.0.0** | `java-17` |
+| **21.0.0** | `java-21` |
+| **24.0.0** | `java-24` |
 
-## Artifact
+## This Line
 
-- **`au.gov.nehta:pcehr-compiled-wsdl`** — MHR B2B WSDL on the classpath + pre-generated JAX-WS/JAXB types.
-- **Not included:** PCEHR facade clients, TLS/signing, or custom runtime WSDL resolution (**[mhr-b2b-client-java](https://github.com/AuDigitalHealth/mhr-b2b-client-java)** is a separate artifact and does not depend on this JAR).
+**`24.0.0-SNAPSHOT`**: Java **24**, Jakarta generated types, and 12 primary MHR B2B **`@WebServiceClient`** services. The default lifecycle compiles committed sources and packages classpath WSDL.
 
-## Layout
+## Artifact Scope
 
-| Path | Role |
-| ---- | ---- |
-| `src/main/resources/wsdl/` | **`B2B_*.wsdl`** packaged under **`/wsdl/`** in the JAR |
-| `src/main/java/wsdls/` | Legacy WSDL/XSD reference tree (**`wsdls/wsdl/External/`**, **`wsdls/schema/`**) |
-| `src/main/java/` | Committed generated types + **`au.gov.nehta.schema.DateAdapter`** |
-| `src/main/java/pcehr_override/` | xmldsig types (override package) |
-| `scripts/fix-javadoc.py` | Repair wsimport Javadoc after regeneration |
+| Artifact | Purpose |
+| -------- | ------- |
+| `au.gov.nehta:mhr-wsdl` | MHR B2B WSDL on the classpath plus pre-generated JAX-WS/JAXB types |
+| `au.gov.nehta:mhr-b2b-client` | Facade clients, TLS, signing, and higher-level request builders |
 
-There is **no** in-repo **`wsimport`** profile. Offline unit tests under **`src/test/java/au/gov/nehta/pcehrwsdl/`** (javax stack, WSDL classpath, generated binding smoke tests).
+Publish **`mhr-wsdl`** first. Any consumer that depends on **`mhr-wsdl`** at the same GA cannot complete **`verify`** until this coordinate is on Central or installed locally.
 
-## Build (`1.6.3` line)
+## Build Stack
 
-- **`maven.compiler.release`** **8**
-- Compile deps ( **`provided`** ): **`jaxb-api` 2.3.1**, **`jaxws-api` 2.3.1**, **`javax.jws-api` 1.1** — no **`jaxws-rt`** in this POM
-- **`maven-enforcer-plugin`:** bans Metro **`webservices-*`**, all **`jakarta.*`** XML APIs — not EE4J **`jaxws-rt`** (that belongs in consuming apps)
-- Consumers: Eclipse EE4J **`com.sun.xml.ws:jaxws-rt` 2.3.7** (last **2.3.x** on Central for Java **8**)
-- **`maven-gpg-plugin`:** skipped unless **`-Dgpg.skip=false`**
-- **`maven-javadoc-plugin`:** **`doclint=all`**, **`failOnWarnings=true`**, **`detectOfflineLinks=false`**
-- Javadoc fixes after wsimport: **`python scripts/fix-javadoc.py`**
-- Build plugins aligned with **hi-wsdl-java** **`1.6.3`** (Java **8**–compatible latest releases)
-- **No source regeneration** on **`1.6.3`** — **`src/main/java`** and **`pcehr_override/`** are committed as-is
+- JDK **24+**
+- Compile APIs: **`jakarta.xml.bind-api` 4.0.5**, **`jakarta.xml.ws-api` 4.0.3**
+- Test runtime: **`com.sun.xml.ws:jaxws-rt` 4.0.5**
+- Enforcer bans legacy Metro **`webservices-*`** and legacy **`javax`** JAX-WS/JAXB API dependencies
+- CI branch filter: **`java-24`**, JDK **24**
 
-## Release
-
-Publishing uses **`central-publishing-maven-plugin`** (Sonatype Central Portal). Copy **`settings.xml.example`** → **`settings.xml`**, server id **`central`**.
-
-**Parallel release lines (maintainers only):** each Git branch publishes a **different Maven version** — integrators choose by coordinate, not branch name.
-
-| Branch | Java | types / client version | `Service` stubs |
-| ------ | ---- | ---------------------- | --------------- |
-| **`java-8-javax-full-wsdl`** | 8 / javax | **1.6.3** | 12 |
-| **`java-11-jakarta-full-wsdl`** | 11 / Jakarta | **1.7.0** | 12 |
-
-Release **`pcehr-compiled-wsdl`** and **`mhr-b2b-client`** at the **same GA version** on the matching branch pair before integrators upgrade.
-
-### SNAPSHOT or manual GA
-
-1. Update **CHANGELOG.md** (and **`pom.xml`** / SCM **`<tag>`** for manual GA).
-2. **`mvn -B "-Prelease" clean verify`**
-3. **`mvn -B "-Prelease" deploy`**
-
-Git/SCM settings for **`maven-release-plugin`** live in **`pom.xml`** properties (**`scm.repo.url`**, **`release.*`**). Tags default to **`{artifactId}-{version}`** (e.g. **`pcehr-compiled-wsdl-1.7.0`**).
-
-### Automated GA (`maven-release-plugin`)
-
-Run on the **target branch** with a **clean** working tree. The plugin commits version bumps, creates the release tag, deploys from the tag checkout, bumps to the next **`-SNAPSHOT`**, and **pushes branch + tag** (**`pushChanges`** / **`remoteTagging`** in **`pom.xml`**). Git remote credentials (SSH or HTTPS) must work non-interactively.
+## Release Command
 
 ```text
-mvn -B "-Prelease" release:prepare release:perform -DreleaseVersion=1.7.0 -DdevelopmentVersion=1.7.1-SNAPSHOT -Dtag=pcehr-compiled-wsdl-1.7.0
+mvn -B "-Prelease" release:prepare release:perform -DreleaseVersion=24.0.0 -DdevelopmentVersion=24.0.1-SNAPSHOT -Dtag=mhr-wsdl-24.0.0
 ```
 
-Replace versions and **`-Dtag`** for the branch you are on (**`mhr-b2b-client-1.6.3`**, **`pcehr-compiled-wsdl-1.6.3`**, etc.). Omit **`-D…`** only if you accept interactive prompts.
-
-**After success:** confirm the artifact on Central; repeat on the paired types/client repo. No extra Git steps unless push failed (then **`git push origin <branch>`** and **`git push origin <tag>`**).
-
-**`-Dgpg.skip=false`** is equivalent to **`-Prelease`** for signing.
-
-## Public commit checklist
-
-Before pushing to a **public** remote:
-
-1. **`git status`** — no keystores, **`settings.xml`**, or **`local.properties`** staged.
-2. No **`target/`** committed.
-3. **`mvn -B clean verify`** passes.
-4. **CHANGELOG.md** and **`pom.xml`** version reflect the release line.
-
-## Copyright
-
-Copyright 2012 NEHTA. Copyright 2021-2026 ADHA. Apache License 2.0 — see **LICENSE.txt**.
+Omit **`-D...`** only if you accept interactive prompts.
