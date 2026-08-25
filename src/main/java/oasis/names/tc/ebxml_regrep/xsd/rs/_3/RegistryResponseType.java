@@ -39,7 +39,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotList;
     "registryErrorList"
 })
 @XmlSeeAlso({
-    au.net.electronichealth.ns.pcehr.xsd.interfaces.getchangehistoryview._1.GetChangeHistoryViewResponse.AdhocQueryResponse.class
+    au.net.electronichealth.ns.mhr.xsd.interfaces.getchangehistoryview._1.GetChangeHistoryViewResponse.AdhocQueryResponse.class
 })
 public class RegistryResponseType {
 
