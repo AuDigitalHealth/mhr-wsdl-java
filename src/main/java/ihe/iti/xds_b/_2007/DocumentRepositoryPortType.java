@@ -1,16 +1,16 @@
 
 package ihe.iti.xds_b._2007;
 
-import javax.jws.WebMethod;
-import javax.jws.WebParam;
-import javax.jws.WebResult;
-import javax.jws.WebService;
-import javax.jws.soap.SOAPBinding;
-import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.ws.Holder;
-import au.net.electronichealth.ns.pcehr.xsd.common.commoncoreelements._1.PCEHRHeader;
-import au.net.electronichealth.ns.pcehr.xsd.common.commoncoreelements._1.Signature;
-import au.net.electronichealth.ns.pcehr.xsd.common.commoncoreelements._1.Timestamp;
+import jakarta.jws.WebMethod;
+import jakarta.jws.WebParam;
+import jakarta.jws.WebResult;
+import jakarta.jws.WebService;
+import jakarta.jws.soap.SOAPBinding;
+import jakarta.xml.bind.annotation.XmlSeeAlso;
+import jakarta.xml.ws.Holder;
+import au.net.electronichealth.ns.mhr.xsd.common.commoncoreelements._1.MHRHeader;
+import au.net.electronichealth.ns.mhr.xsd.common.commoncoreelements._1.Signature;
+import au.net.electronichealth.ns.mhr.xsd.common.commoncoreelements._1.Timestamp;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 
@@ -23,20 +23,20 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 @WebService(name = "DocumentRepository_PortType", targetNamespace = "urn:ihe:iti:xds-b:2007")
 @SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
 @XmlSeeAlso({
-    au.net.electronichealth.ns.pcehr.xsd.common.commoncoreelements._1.ObjectFactory.class,
+    au.net.electronichealth.ns.mhr.xsd.common.commoncoreelements._1.ObjectFactory.class,
     ihe.iti.xds_b._2007.ObjectFactory.class,
     oasis.names.tc.ebxml_regrep.xsd.lcm._3.ObjectFactory.class,
     oasis.names.tc.ebxml_regrep.xsd.query._3.ObjectFactory.class,
     oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory.class,
     oasis.names.tc.ebxml_regrep.xsd.rs._3.ObjectFactory.class,
-    pcehr_override.org.w3.ObjectFactory.class
+    mhr_override.org.w3.ObjectFactory.class
 })
 public interface DocumentRepositoryPortType {
 
 
     /**
      * 
-     * @param pcehrHeader PCEHR request header
+     * @param mhrHeader MHR request header
      * @param timestampHeader timestamp SOAP header
      * @param parameters request payload
      * @param signatureHeader signature SOAP header holder
@@ -51,13 +51,13 @@ public interface DocumentRepositoryPortType {
         @WebParam(name = "signature", targetNamespace = "http://ns.electronichealth.net.au/pcehr/xsd/common/CommonCoreElements/1.0", header = true, mode = WebParam.Mode.INOUT, partName = "signatureHeader")
         Holder<Signature> signatureHeader,
         @WebParam(name = "PCEHRHeader", targetNamespace = "http://ns.electronichealth.net.au/pcehr/xsd/common/CommonCoreElements/1.0", header = true, partName = "PCEHRHeader")
-        PCEHRHeader pcehrHeader,
+        MHRHeader mhrHeader,
         @WebParam(name = "ProvideAndRegisterDocumentSetRequest", targetNamespace = "urn:ihe:iti:xds-b:2007", partName = "parameters")
         ProvideAndRegisterDocumentSetRequest parameters);
 
     /**
      * 
-     * @param pcehrHeader PCEHR request header
+     * @param mhrHeader MHR request header
      * @param timestampHeader timestamp SOAP header
      * @param parameters request payload
      * @param signatureHeader signature SOAP header holder
@@ -72,7 +72,7 @@ public interface DocumentRepositoryPortType {
         @WebParam(name = "signature", targetNamespace = "http://ns.electronichealth.net.au/pcehr/xsd/common/CommonCoreElements/1.0", header = true, mode = WebParam.Mode.INOUT, partName = "signatureHeader")
         Holder<Signature> signatureHeader,
         @WebParam(name = "PCEHRHeader", targetNamespace = "http://ns.electronichealth.net.au/pcehr/xsd/common/CommonCoreElements/1.0", header = true, partName = "PCEHRHeader")
-        PCEHRHeader pcehrHeader,
+        MHRHeader mhrHeader,
         @WebParam(name = "RetrieveDocumentSetRequest", targetNamespace = "urn:ihe:iti:xds-b:2007", partName = "parameters")
         RetrieveDocumentSetRequest parameters);
 

@@ -9,7 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / "src" / "main" / "java"
 
 PARAM_DESCRIPTIONS = {
-    "pcehrHeader": "PCEHR request header",
+    "mhrHeader": "MHR request header",
     "parameters0": "SOAP response holder",
     "timestampHeader": "timestamp SOAP header",
     "parameters": "request payload",
