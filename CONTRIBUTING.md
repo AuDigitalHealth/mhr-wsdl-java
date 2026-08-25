@@ -1,56 +1,41 @@
 # Contributing
 
-**Audience:** developers building or changing **this repository**. Integrators should use **README.md** and Maven Central coordinates.
-
-## Prerequisites
-
-- **JDK 8** with **`JAVA_HOME`** set.
-- **Maven 3.6+** on **`PATH`**.
+Thank you for helping maintain **`au.gov.nehta:mhr-wsdl`**. This repository publishes My Health Record B2B WSDL resources and committed Jakarta JAX-WS/JAXB generated types.
 
 ## Build
 
-From the project root:
+Prerequisites: **JDK 21+** and **Maven 3.6+**.
 
 ```text
-mvn -B clean verify
+mvn -B "-Dgpg.skip=true" clean verify
 ```
 
-| Goal | Command |
+The default lifecycle compiles committed sources only. It does not run **`wsimport`**.
+
+## Local Snapshot Install
+
+Use **`install`** when a sibling project needs the unpublished local coordinate:
+
+```text
+mvn -B "-Dgpg.skip=true" clean install
+```
+
+Consumers that pin **`mhr-wsdl`** to **`${project.version}`** must use the same version as this **`pom.xml`**.
+
+## Source Layout
+
+| Path | Purpose |
 | ---- | ------- |
-| Compile + attach sources/Javadoc | `mvn -B clean verify` |
-| Run unit tests only | `mvn -B clean test` |
-| Skip tests | `mvn -B clean verify "-DskipTests=true"` |
-| Signed release (GPG on **`PATH`**) | `mvn -B "-Dgpg.skip=false" clean verify` |
-| Install SNAPSHOT for sibling client build | `mvn -B "-Dgpg.skip=true" clean install` — required before **`mhr-b2b-client-java`** **`verify`** when both repos are at matching **`*-SNAPSHOT`** versions |
+| `src/main/java/au/net/electronichealth/ns/mhr/` | Generated MHR B2B service and schema types |
+| `src/main/java/mhr_override/` | xmldsig override types |
+| `src/main/java/wsdls/` | WSDL/XSD reference tree |
+| `src/main/resources/wsdl/` | Classpath WSDL packaged in the JAR |
+| `src/test/java/au/gov/nehta/mhrwsdl/` | Offline build and binding checks |
 
-GPG signing is skipped by default (**`gpg.skip=true`** in **`pom.xml`**). Release builds: **`-Dgpg.skip=false`**.
+## Generated Sources
 
-## Dependencies
+Regeneration is a maintainer task. Preserve public package names, class names, WSDL filenames, and the **`mhr_override`** layout. Generated Java in this line uses Jakarta XML Web Services imports.
 
-- Compile ( **`provided`** ): **`javax.xml.bind:jaxb-api`**, **`javax.xml.ws:jaxws-api`**, **`javax.jws:javax.jws-api`** only — on the JDK 8 classpath; **`provided`** so they are not transitive to consumers.
-- Runtime SOAP stack: Eclipse EE4J **`com.sun.xml.ws:jaxws-rt`** **2.3.7** in **consuming** applications — **not** legacy Metro **`webservices-*`** bundles.
-- **`maven-enforcer-plugin`** rejects Metro **`webservices-*`**, all **`jakarta.*`** XML API coordinates, and runtime JAX-WS/JAXB implementations in this POM (**`javax`** API deps only).
+## Release Notes
 
-## Regenerating sources
-
-Generated Java under **`src/main/java`** (outside **`wsdls/`**) is **committed**. The root **`pom.xml`** does **not** run **`wsimport`**.
-
-To refresh types after a WSDL change on this line:
-
-1. Regenerate from the WSDL/XSD in **this** repository (**`src/main/resources/wsdl/`**, **`src/main/java/wsdls/`**) using **`wsimport`** on Java **8** / **`javax`**.
-2. Preserve public API: same class names, packages, and **`pcehr_override`** xmldsig layout.
-3. Run **`python scripts/fix-javadoc.py`** to repair wsimport Javadoc (escaped schema fragments, **`@param`** / **`@return`** tags).
-4. Run **`mvn -B "-Dgpg.skip=true" clean verify`** and update **CHANGELOG.md**.
-
-Java **11** / **Jakarta** MHR type regeneration and facade clients are maintained in **[mhr-b2b-client-java](https://github.com/AuDigitalHealth/mhr-b2b-client-java)**, not this repository.
-
-## Repository hygiene
-
-- **Do not commit** keystores, production MHR endpoint URLs, populated **`settings.xml`** with release credentials, or **`local.properties`** with secrets. See **SECURITY.md**.
-- **`1.6.3`:** generated Java under **`src/main/java`** is frozen — this POM has no **`wsimport`** profile.
-- **Changes:** Keep commits focused; match existing generated-code style.
-- Maintainer notes: **MAINTAINERS.md**.
-
-## Copyright
-
-Copyright 2012 NEHTA. Copyright 2021-2026 ADHA. Apache License 2.0 — see **LICENSE.txt**.
+Update **`CHANGELOG.md`** for public changes. Integrator-facing docs use Maven versions, not Git branch names.

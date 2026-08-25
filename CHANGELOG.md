@@ -1,13 +1,30 @@
 # Change Log/Revision History
 
-= 1.6.3-SNAPSHOT =
-======
-- **`1.6.3`** line: Java **8** / **`javax`** committed types and classpath WSDL (**12** `Service` stubs, MHR B2B scope).
-- POM: **`provided`** compile **`jaxb-api`**, **`jaxws-api`**, **`javax.jws-api`**; **`maven-enforcer-plugin`** bans Metro **`webservices-*`** and **`jakarta.*`** (consumers use EE4J **`jaxws-rt` 2.3.7**). Build plugins aligned with **hi-wsdl-java** **`1.6.3`**.
-- **`maven-javadoc-plugin`:** **`doclint=all`**, **`failOnWarnings=true`** — Javadoc repaired in source via **`scripts/fix-javadoc.py`**.
-- **`maven-gpg-plugin`:** **`gpg.skip`** defaults to **`true`** for local builds.
-- Offline unit tests: **`JavaxStackTest`**, **`PcehrCompiledWsdlArtifactTest`**, **`GeneratedWsdlBindingsTest`** under **`src/test/java/au/gov/nehta/pcehrwsdl/`**.
-- CI: **`.github/workflows/ci.yml`** (Java **8**, **`mvn verify`**).
+= 21.0.0 =
+=======
+- Maven **`au.gov.nehta:mhr-wsdl`** **21.0.0** (Java **21** / **Jakarta**, **12** `Service` stubs). The first number of the Maven version is the targeted Java SE version. Consumers that pin **`mhr-wsdl`** to **`${project.version}`** use the same coordinate.
+- Java packages and types use **`mhr`** names (`ns.mhr`, **`MHRHeader`**, **`RegisterMHRService`**). SOAP namespaces and element names remain the B2B **`pcehr`** wire contract.
+- Compile: **`jakarta.xml.bind:jakarta.xml.bind-api` 4.0.5** and **`jakarta.xml.ws:jakarta.xml.ws-api` 4.0.3**. Tests use **`com.sun.xml.ws:jaxws-rt` 4.0.5**. **`maven-enforcer-plugin`** bans Metro **`webservices-*`** and legacy **`javax`** JAX-WS/JAXB APIs.
+- POM: Sonatype Central Portal (**`central-publishing-maven-plugin`**; server id **`central`**).
+- Offline unit tests: **`JakartaStackTest`**, **`MhrWsdlArtifactTest`**, **`GeneratedWsdlBindingsTest`**, **`WsdlStubContractTest`** under **`src/test/java/au/gov/nehta/mhrwsdl/`**. **`MhrWsdlArtifactTest`** also locks interface WSDLs, PortType wire ops, and the **7** getView request types against the **mhr-b2b-client-dotnet** B2B set.
+- Documentation: README, CONTRIBUTING, MAINTAINERS, SECURITY.
+
+= 17.0.0 =
+=======
+- Maven **`au.gov.nehta:mhr-wsdl`** **17.0.0** (Java **17** / **Jakarta**, **12** `Service` stubs). The first number of the Maven version is the targeted Java SE version. Consumers that pin **`mhr-wsdl`** to **`${project.version}`** use the same coordinate.
+- Java packages and types use **`mhr`** names (`ns.mhr`, **`MHRHeader`**, **`RegisterMHRService`**). SOAP namespaces and element names remain the B2B **`pcehr`** wire contract.
+- Compile: **`jakarta.xml.bind:jakarta.xml.bind-api` 4.0.5** and **`jakarta.xml.ws:jakarta.xml.ws-api` 4.0.3**. Tests use **`com.sun.xml.ws:jaxws-rt` 4.0.5**. **`maven-enforcer-plugin`** bans Metro **`webservices-*`** and legacy **`javax`** JAX-WS/JAXB APIs.
+- POM: Sonatype Central Portal (**`central-publishing-maven-plugin`**; server id **`central`**).
+- Offline unit tests: **`JakartaStackTest`**, **`MhrWsdlArtifactTest`**, **`GeneratedWsdlBindingsTest`**, **`WsdlStubContractTest`** under **`src/test/java/au/gov/nehta/mhrwsdl/`**. **`MhrWsdlArtifactTest`** also locks interface WSDLs, PortType wire ops, and the **7** getView request types against the **mhr-b2b-client-dotnet** B2B set.
+- Documentation: README, CONTRIBUTING, MAINTAINERS, SECURITY.
+
+= 11.0.0 =
+=======
+- Maven **`au.gov.nehta:mhr-wsdl`** **11.0.0** (Java **11** / **Jakarta**, **12** `Service` stubs). The first number of the Maven version is the targeted Java SE version. Consumers that pin **`mhr-wsdl`** to **`${project.version}`** use the same coordinate.
+- Java packages and types use **`mhr`** names (`ns.mhr`, **`MHRHeader`**, **`RegisterMHRService`**). SOAP namespaces and element names remain the B2B **`pcehr`** wire contract.
+- Compile: **`jakarta.xml.bind:jakarta.xml.bind-api` 4.0.5** and **`jakarta.xml.ws:jakarta.xml.ws-api` 4.0.3**. Tests use **`com.sun.xml.ws:jaxws-rt` 4.0.5**. **`maven-enforcer-plugin`** bans Metro **`webservices-*`** and legacy **`javax`** JAX-WS/JAXB APIs.
+- POM: Sonatype Central Portal (**`central-publishing-maven-plugin`**; server id **`central`**).
+- Offline unit tests: **`JakartaStackTest`**, **`MhrWsdlArtifactTest`**, **`GeneratedWsdlBindingsTest`**, **`WsdlStubContractTest`** under **`src/test/java/au/gov/nehta/mhrwsdl/`**. **`MhrWsdlArtifactTest`** also locks interface WSDLs, PortType wire ops, and the **7** getView request types against the **mhr-b2b-client-dotnet** B2B set.
 - Documentation: README, CONTRIBUTING, MAINTAINERS, SECURITY.
 
 = 1.1.1 =
@@ -16,8 +33,12 @@
 
 = 1.1.0 =
 =========
-- Converted to Maven build to allow deployment to Maven repository
+- Converted to Maven build to allow deployment to Maven repository.
 
 = 1.0.0 =
 =========
-- Initial version
+- Initial version.
+
+## Copyright
+
+Copyright 2012 NEHTA. Copyright 2021-2026 ADHA. Apache License 2.0 - see **LICENSE.txt**.
