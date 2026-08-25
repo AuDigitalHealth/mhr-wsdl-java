@@ -4,7 +4,7 @@ Thank you for helping maintain **`au.gov.nehta:mhr-wsdl`**. This repository publ
 
 ## Build
 
-Prerequisites: **JDK 11+** and **Maven 3.6+**.
+Prerequisites: **JDK 17+** and **Maven 3.6+**.
 
 ```text
 mvn -B "-Dgpg.skip=true" clean verify
