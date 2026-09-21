@@ -1,0 +1,60 @@
+---
+description: MHR WSDL artifact repo layout, release lines, and build
+alwaysApply: true
+---
+
+# mhr-wsdl-java
+
+Maven artifact **`au.gov.nehta:mhr-wsdl`** - MHR B2B WSDL resources and pre-generated JAX-WS/JAXB types. **Not** facade clients (**mhr-b2b-client-java**). **Not** Healthcare Identifiers (**hi-wsdl-java** / **hi-b2b-client-java**).
+
+## Documentation
+
+Follow **`documentation-standards.mdc`**. Integrator docs use **version numbers** - not Git branch names.
+
+The **first number** of **`au.gov.nehta:mhr-wsdl`** is the **Java SE** target. Downstream artifacts that pin this coordinate to **`${project.version}`** (including **`mhr-b2b-client`**) use the same version.
+
+| Version      | Java | XML stack                                            | `Service` stubs  |
+| ------------ | ---- | ---------------------------------------------------- | ---------------- |
+| **8.0.0**  | 8    | **javax** / EE4J **`jaxws-rt` 2.3.x** in consumers   | **12** (MHR B2B) |
+| **11.0.0.1** | 11   | **Jakarta** / EE4J **`jaxws-rt` 4.0.x** in consumers | **12** (MHR B2B) |
+| **17.0.0.1** | 17   | **Jakarta** / EE4J **`jaxws-rt` 4.0.x** in consumers | **12** (MHR B2B) |
+| **21.0.0.1** | 21   | **Jakarta** / EE4J **`jaxws-rt` 4.0.x** in consumers | **12** (MHR B2B) |
+| **24.0.0.1** | 24   | **Jakarta** / EE4J **`jaxws-rt` 4.0.x** in consumers | **12** (MHR B2B) |
+
+**Git branch mapping (maintainers only - never in integrator docs):**
+
+| Version      | Official Git branch |
+| ------------ | ------------------- |
+| **8.0.0**  | `java-8`            |
+| **11.0.0.1** | `java-11`           |
+| **17.0.0.1** | `java-17`           |
+| **21.0.0.1** | `java-21`           |
+| **24.0.0.1** | `java-24`           |
+
+## This 8.0.0 line
+
+**`8.0.0-SNAPSHOT`**: Java **8**, **`javax`** committed types, **12** MHR B2B **`@WebServiceClient`** services. WSDL under **`src/main/resources/wsdl/`** and reference tree **`src/main/java/wsdls/`**. **`mhr_override/`** xmldsig package. Sources frozen - no **`wsimport`** in this POM.
+
+## Build
+
+- JDK **8+**, from repo root: `mvn -B "-Dgpg.skip=true" clean verify` (quote `-D` on PowerShell).
+- Default build uses **committed** `src/main/java` - no wsimport.
+- After wsimport regeneration: **`python scripts/fix-javadoc.py`** then **`mvn verify`** (**`doclint=all`**, **`failOnWarnings=true`**).
+- Consumers add Eclipse EE4J **`com.sun.xml.ws:jaxws-rt` 2.3.7** at runtime - **not** Metro **`webservices-*`**.
+
+## vs mhr-b2b-client-java
+
+|          | **mhr-wsdl-java**                   | **mhr-b2b-client-java**      |
+| -------- | ----------------------------------- | ---------------------------- |
+| Delivers | WSDL on classpath + generated types | Facade clients, TLS, signing |
+| Artifact | `mhr-wsdl`                          | `mhr-b2b-client`             |
+
+Publish **`mhr-wsdl`** first. Consumers that pin **`${project.version}`** (including **`mhr-b2b-client`**) use the same coordinate on each line (**8.0.0**, **11.0.0.1**, and so on).
+
+## Doc split
+
+- **`documentation-standards.mdc`**: implementor-first, Maven Central default, local/OS sections, relative paths, no secrets
+- **`ascii-source.mdc`**: ASCII only in authored files
+- **`README.md`**: integrators (Maven Central default)
+- **`CONTRIBUTING.md`**: build from source, local SNAPSHOT, regeneration notes
+- **`MAINTAINERS.md`**: POM / Javadoc / release internals
