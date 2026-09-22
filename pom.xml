@@ -9,7 +9,7 @@
 
     <groupId>au.gov.nehta</groupId>
     <artifactId>mhr-wsdl</artifactId>
-    <version>8.0.0-SNAPSHOT</version>
+    <version>8.0.0</version>
     <name>MHR WSDL library</name>
     <description>Java classes for My Health Record B2B client development (Java 8 / javax)</description>
     <url>https://github.com/AuDigitalHealth/mhr-wsdl-java</url>
